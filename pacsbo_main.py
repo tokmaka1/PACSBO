@@ -61,7 +61,7 @@ def NN_return_prediction(h_RKHS_data, vi_frac_data):
     input_tensor = torch.tensor(h_RKHS_input + vi_frac_input).to(torch.float32)
     model_load = net(len(input_tensor), 1)
     # model_load.load_state_dict(torch.load('NN-hardware_final_final'))
-    model_load.load_state_dict(torch.load('NN_Test_11'))
+    model_load.load_state_dict(torch.load('NN_final'))
     model_load.eval()
     RKHS_norm_prediction = model_load(input_tensor)
     return RKHS_norm_prediction.item()
@@ -627,18 +627,18 @@ if __name__ == '__main__':
         Y_sample = Y_sample_init.clone()
         if reproduce_experiments:
             noise_std = 0.01
-            with open('Experiments/1D_toy_experiments/gt.pickle', 'rb') as handle:
+            with open('1D_toy_experiments/gt.pickle', 'rb') as handle:
                 gt = dill.load(handle)
-            with open('Experiments/1D_toy_experiments/X_sample.pickle', 'rb') as handle:
+            with open('1D_toy_experiments/X_sample.pickle', 'rb') as handle:
                 X_sample = dill.load(handle)
-            with open('Experiments/1D_toy_experiments/Y_sample.pickle', 'rb') as handle:
+            with open('1D_toy_experiments/Y_sample.pickle', 'rb') as handle:
                 Y_sample = dill.load(handle)
         if not reproduce_experiments:  # not reproduce_experiments:
-            with open('Experiments/1D_toy_experiments/gt.pickle', 'wb') as handle:
+            with open('1D_toy_experiments/gt.pickle', 'wb') as handle:
                 dill.dump(gt, handle)
-            with open('Experiments/1D_toy_experiments/X_sample.pickle', 'wb') as handle:
+            with open('1D_toy_experiments/X_sample.pickle', 'wb') as handle:
                 dill.dump(X_sample, handle)
-            with open('Experiments/1D_toy_experiments/Y_sample.pickle', 'wb') as handle:
+            with open('1D_toy_experiments/Y_sample.pickle', 'wb') as handle:
                 dill.dump(Y_sample, handle)
 
         with torch.no_grad(), gpytorch.settings.fast_pred_var():
